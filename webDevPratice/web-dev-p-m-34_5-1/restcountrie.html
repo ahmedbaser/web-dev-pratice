@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL Shortener</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        text-align: center;
+    }
+    input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .error {
+        color: red;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <input type="text" id="urlInput" placeholder="Enter URL">
+    <button onclick="shortenUrl()">Shorten it!</button>
+    <button onclick="showShortenedLinks()">Show Shortened Links <i class="fa fa-eye"></i></button>
+    <button onclick="copyToClipboard()" id="copyBtn" style="display:none;">Copy Link</button>
+    <div id="errorMessage" class="error" style="display:none;">Please enter a valid URL</div>
+</div>
+
+<!-- Modal to display shortened links -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <ul id="shortenedLinks"></ul>
+    </div>
+</div>
+
+<script>
+    var shortenedLinks = [];
+
+    // Function to shorten URL
+    function shortenUrl() {
+        var inputUrl = document.getElementById('urlInput').value;
+        var errorMessage = document.getElementById('errorMessage');
+
+        if (inputUrl.trim() === '') {
+            errorMessage.style.display = 'block';
+            return;
+        }
+
+        // Your URL shortening logic here
+        var shortenedLink = 'https://short.url/' + Math.random().toString(36).substring(7);
+        shortenedLinks.push(shortenedLink);
+
+        // Assuming the URL shortening is successful, display copy button
+        document.getElementById('copyBtn').style.display = 'block';
+        errorMessage.style.display = 'none';
+    }
+
+    // Function to show shortened links in modal
+    function showShortenedLinks() {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        modal.style.display = "block";
+
+        var list = document.getElementById('shortenedLinks');
+        list.innerHTML = '';
+        shortenedLinks.forEach(function(link) {
+            var li = document.createElement('li');
+            li.textContent = link;
+            list.appendChild(li);
+        });
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
+    // Function to copy shortened link to clipboard
+    function copyToClipboard() {
+        var dummy = document.createElement("input");
+        document.body.appendChild(dummy);
+        dummy.setAttribute("id", "dummy_id");
+        document.getElementById("dummy_id").value = shortenedLinks[shortenedLinks.length - 1]; // Copy the last shortened link
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        alert("Copied to clipboard");
+    }
+</script>
+</body>
+</html>

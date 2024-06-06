@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<style>
+    textarea {
+        outline: none;
+    }
+</style>
+<body>
+   <main>
+    <section>
+    <div class="grid justify-center">
+     <textarea class="px-2 py-2 border-4 border-indigo-600" placeholder="Input your text here!" id="textInput" name=""  cols="30" rows="10"></textarea>
+       <div class="buttons mt-5">
+       <button class="bg-lime-500 text-white px-5 py-2 rounded-lg" onclick="Bold()">Bold</button>
+       <button class="bg-blue-700 text-white px-5 py-2 rounded-lg" onclick="Italic()">Italic</button>
+       <button  class="bg-amber-300 text-white px-5 py-2 rounded-lg"  onclick="Underlibe()">Underline</button>
+       <button class="bg-teal-600 text-white px-5 py-2 rounded-lg" onclick="Left()">Left</button>
+       <button class="bg-cyan-500 text-white px-5 py-2 rounded-lg" onclick="Right()">Right</button>
+       <button class="bg-indigo-400 text-white px-5 py-2 rounded-lg" onclick="Center()">Center</button>
+      </div>
+ 
+      <div>
+      <label for="FontSize">FontSize:</label>
+      <input type="number" id="fontSizeInput" onchange="changeFontSize()">
+     </div>
+    <div>
+      <label for="FontColor">FontColor:</label>
+      <input type="color" id="fontColorInput" onchange="changeFontColor()">
+    </div>
+</div>
+
+
+</section>
+</main>
+    
+
+
+    <script src="js/layout.js"></script>
+</body>
+</html>
